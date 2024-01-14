@@ -12,15 +12,6 @@ const scene = new THREE.Scene()
 
 // Objects
 
-// cube
-const geometry = new THREE.BoxGeometry(1, 1, 1, 5, 5, 5)
-const material = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-  wireframe: true,
-})
-const cube = new THREE.Mesh(geometry, material)
-scene.add(cube)
-
 // plane
 const plane = new THREE.Mesh(
   new THREE.PlaneGeometry(100, 100, 100, 100),
@@ -35,39 +26,57 @@ plane.rotation.x = Math.PI * 1.5
 plane.position.y = -0.5
 scene.add(plane)
 
-// esfera
+// figura 3d custom/personalizada
 
-const esfera = new THREE.Mesh(
-  new THREE.SphereGeometry(0.5),
-  new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true })
-)
+/* primera forma */
 
-esfera.position.z = -1.5
+// const positionsArray = new Float32Array(9)
 
-scene.add(esfera)
+// // primer vertice
+// positionsArray[0] = 0 // x
+// positionsArray[1] = 0 // y
+// positionsArray[2] = 0 // z
 
-// dona
+// // segundo vertice
+// positionsArray[3] = 0 // x
+// positionsArray[4] = 1 // y
+// positionsArray[5] = 0 // z
 
-const dona = new THREE.Mesh(
-  new THREE.TorusGeometry(),
-  new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true })
-)
+// // tercer vertice
+// positionsArray[6] = 1 // x
+// positionsArray[7] = 1 // y
+// positionsArray[8] = 0 // z
 
-dona.scale.set(0.5, 0.5, 0.5)
-dona.rotation.x = Math.PI * 0.5
-dona.position.y = 1
+/////////////////////////////////////////////////////////////////////
 
-scene.add(dona)
+/* SEGUNDA FORMA */
 
-// cono
-const cone = new THREE.Mesh(
-  new THREE.ConeGeometry(0.5, 1),
-  new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
-)
+// prettier-ignore
+const positionsArray = new Float32Array([
+    0, 0, 0, // primer vertice // x, y, z
+    0, 1, 0, // segundo vertice // x, y, z
+    1, 1, 0, // tercer vertice // x, y, z
+])
 
-cone.position.x = -2
+const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
 
-scene.add(cone)
+// 1. geometry
+const geometryCustom = new THREE.BufferGeometry()
+geometryCustom.setAttribute('position', positionAttribute)
+
+// 2. material
+const material = new THREE.MeshBasicMaterial({
+  color: 'red',
+  wireframe: true,
+  //   side: THREE.DoubleSide,
+})
+
+// 3. crear el mesh, haciendo uso de geometry creados por nosotros
+const meshCustom = new THREE.Mesh(geometryCustom, material)
+
+scene.add(meshCustom)
+
+/////////////////////////////////////////////////////////////////////
 
 // Sizes
 const sizes = {
