@@ -6,4 +6,4 @@
 
 <!-- - Crear un triangulo hecho con 3 vertices y agregarlo a la escena -->
 
-- agregar una figura creada con vertices con atrbutos laeatorios
+- agregar una figura creada con vertices con atributos aleatorios
