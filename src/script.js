@@ -13,18 +13,18 @@ const scene = new THREE.Scene()
 // Objects
 
 // plane
-const plane = new THREE.Mesh(
-  new THREE.PlaneGeometry(100, 100, 100, 100),
-  new THREE.MeshBasicMaterial({
-    color: 'gray',
-    side: THREE.FrontSide,
-    wireframe: true,
-  })
-)
+// const plane = new THREE.Mesh(
+//   new THREE.PlaneGeometry(100, 100, 100, 100),
+//   new THREE.MeshBasicMaterial({
+//     color: 'gray',
+//     side: THREE.FrontSide,
+//     wireframe: true,
+//   })
+// )
 
-plane.rotation.x = Math.PI * 1.5
-plane.position.y = -0.5
-scene.add(plane)
+// plane.rotation.x = Math.PI * 1.5
+// plane.position.y = -0.5
+// scene.add(plane)
 
 // figura 3d custom/personalizada
 
@@ -51,17 +51,60 @@ scene.add(plane)
 
 /* SEGUNDA FORMA */
 
-// prettier-ignore
-const positionsArray = new Float32Array([
-    0, 0, 0, // primer vertice // x, y, z
-    0, 1, 0, // segundo vertice // x, y, z
-    1, 1, 0, // tercer vertice // x, y, z
-])
+// // 1. geometry
+// const geometryCustom = new THREE.BufferGeometry()
 
-const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
+// // prettier-ignore
+// const positionsArray = new Float32Array([
+//     0, 0, 0, // primer vertice // x, y, z
+//     0, 1, 0, // segundo vertice // x, y, z
+//     1, 1, 0, // tercer vertice // x, y, z
+// ])
+
+// const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
+// geometryCustom.setAttribute('position', positionAttribute)
+
+// // 2. material
+// const material = new THREE.MeshBasicMaterial({
+//   color: 'red',
+//   wireframe: true,
+//   //   side: THREE.DoubleSide,
+// })
+
+// // 3. crear el mesh, haciendo uso de geometry creados por nosotros
+// const meshCustom = new THREE.Mesh(geometryCustom, material)
+
+// scene.add(meshCustom)
+
+/////////////////////////////////////////////////////////////////////
+
+/* TERCERA FORMA - ORDENDA Y 50 TRIANGULOS */
 
 // 1. geometry
 const geometryCustom = new THREE.BufferGeometry()
+
+// prettier-ignore
+// const positionsArray = new Float32Array([
+//     0, 0, 0, // primer vertice // x, y, z
+//     0, 1, 0, // segundo vertice // x, y, z
+//     1, 1, 0, // tercer vertice // x, y, z
+// ])
+
+// const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
+// geometryCustom.setAttribute('position', positionAttribute)
+
+const countTriangles = 100
+
+const positionsArray = new Float32Array(countTriangles * 3 * 3)
+
+for (let i = 0; i < countTriangles * 3 * 3; i++) {
+  positionsArray[i] = (Math.random() - 0.5) * 4
+}
+
+const positionAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
 geometryCustom.setAttribute('position', positionAttribute)
 
 // 2. material
@@ -75,7 +118,6 @@ const material = new THREE.MeshBasicMaterial({
 const meshCustom = new THREE.Mesh(geometryCustom, material)
 
 scene.add(meshCustom)
-
 /////////////////////////////////////////////////////////////////////
 
 // Sizes
